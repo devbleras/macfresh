@@ -101,11 +101,23 @@ Disk, memory (one-click *Free up*), CPU with top process, battery charge, health
 
 ## 🚀 Installation
 
-### Requirements
-- macOS 14 Sonoma or later (Apple Silicon or Intel)
-- Xcode 15.3+ or the Swift 5.10+ command-line tools (`xcode-select --install`)
+### Download (easiest)
+
+1. Download **`MacFresh-x.y.z.zip`** from the [latest release](https://github.com/devbleras/macfresh/releases/latest).
+2. Unzip it and drag **MacFresh.app** into **Applications**.
+3. Open it. Because MacFresh is free and not notarized by Apple, macOS will warn you the first time:
+   - **macOS 15 Sequoia or later:** open **System Settings → Privacy & Security**, scroll down and click **Open Anyway** next to MacFresh.
+   - **macOS 14 Sonoma:** right-click MacFresh.app → **Open** → **Open**.
+   - Or from Terminal:
+     ```bash
+     xattr -dr com.apple.quarantine /Applications/MacFresh.app
+     ```
+
+Universal app: runs natively on Apple Silicon and Intel Macs with macOS 14 or later.
 
 ### Build from source
+
+Requirements: macOS 14+ and Xcode 15.3+ (or the Swift 5.10+ command-line tools: `xcode-select --install`).
 
 ```bash
 git clone https://github.com/devbleras/macfresh.git
@@ -115,11 +127,7 @@ open build/MacFresh.app
 ```
 
 To install it like any other app, drag `build/MacFresh.app` into `/Applications`.
-
-> **Gatekeeper:** the app is signed ad-hoc (no paid Apple Developer ID). If you download a pre-built copy and macOS refuses to open it, right-click → **Open**, or run:
-> ```bash
-> xattr -dr com.apple.quarantine /Applications/MacFresh.app
-> ```
+Maintainers can create a universal release zip with `./scripts/release.sh <version>`.
 
 ### Grant Full Disk Access (recommended)
 To scan Mail, Safari, the Trash and app permissions, enable MacFresh in

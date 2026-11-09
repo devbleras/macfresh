@@ -13,8 +13,11 @@ echo "▸ Generando traducciones…"
 python3 "$ROOT/scripts/l10n/build_strings.py"
 
 echo "▸ Compilando ($CONFIG)…"
-swift build -c "$CONFIG"
-BIN="$(swift build -c "$CONFIG" --show-bin-path)/MacFresh"
+# UNIVERSAL=1 builds a single binary for Apple Silicon and Intel (used for releases).
+ARCH_FLAGS=()
+if [ "${UNIVERSAL:-0}" = "1" ]; then ARCH_FLAGS=(--arch arm64 --arch x86_64); fi
+swift build -c "$CONFIG" ${ARCH_FLAGS[@]+"${ARCH_FLAGS[@]}"}
+BIN="$(swift build -c "$CONFIG" ${ARCH_FLAGS[@]+"${ARCH_FLAGS[@]}"} --show-bin-path)/MacFresh"
 
 echo "▸ Creando bundle…"
 rm -rf "$APP"
